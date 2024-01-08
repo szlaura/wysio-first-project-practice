@@ -1,0 +1,169 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="szekeres.laura" id="2022-04-13-1">
+        <createTable tableName="bunyo_vendeg_in_bunyo_list">
+            <column name="bunyo_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vendeg_in_bunyo_list_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-2">
+        <createTable tableName="ital">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ital_pkey"/>
+            </column>
+            <column name="alkohol_tartalom" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="egy_adag_mennyisege" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nev" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-3">
+        <createTable tableName="bunyo_resztvevo_vendegek">
+            <column name="bunyo_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resztvevo_vendegek_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-4">
+        <addUniqueConstraint columnNames="vendeg_in_bunyo_list_id" constraintName="uk_9xbtr775eaxy4sdntkhu6e89y" tableName="bunyo_vendeg_in_bunyo_list"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-5">
+        <addUniqueConstraint columnNames="nev" constraintName="uk_e84ouqqpp1q9m80lm28nbc9u8" tableName="ital"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-6">
+        <addUniqueConstraint columnNames="resztvevo_vendegek_id" constraintName="uk_pev4tlgyeb7txcdkk9acbrd6y" tableName="bunyo_resztvevo_vendegek"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-7">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1"
+                        sequenceName="hibernate_sequence" startValue="1"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-8">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="50" maxValue="9223372036854775807" minValue="1" sequenceName="my_entity_seq"
+                        startValue="1"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-9">
+        <createTable tableName="bunyo">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="bunyo_pkey"/>
+            </column>
+            <column name="meddig" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="mettol" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nyertes_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-10">
+        <createTable tableName="fogyasztas">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="fogyasztas_pkey"/>
+            </column>
+            <column name="hany_egyseget_fogyasztott" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ital_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vendeg_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fogyasztas_lista_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-11">
+        <createTable tableName="kocsmazas">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="kocsmazas_pkey"/>
+            </column>
+            <column name="detoxba_kerules" type="BOOLEAN"/>
+            <column name="meddig" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="mettol" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-12">
+        <createTable tableName="vendeg">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="vendeg_pkey"/>
+            </column>
+            <column name="becenev" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bicepsz_meret" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="majerosseg" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-13">
+        <createTable tableName="vendeg_in_bunyo">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="vendeg_in_bunyo_pkey"/>
+            </column>
+            <column name="is_kiesett" type="BOOLEAN"/>
+            <column name="vendeg_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-14">
+        <addForeignKeyConstraint baseColumnNames="ital_id" baseTableName="fogyasztas" constraintName="fk1lj55sgfllt48cai0goe1d1sa" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="ital"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-15">
+        <addForeignKeyConstraint baseColumnNames="resztvevo_vendegek_id" baseTableName="bunyo_resztvevo_vendegek" constraintName="fk3lgkg9c0ayasac5tn7t17c4n2"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="vendeg" validate="true"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-16">
+        <addForeignKeyConstraint baseColumnNames="nyertes_id" baseTableName="bunyo" constraintName="fk4a9alv59fh6xxlgx9tyqh78cr" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vendeg"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-17">
+        <addForeignKeyConstraint baseColumnNames="vendeg_id" baseTableName="vendeg_in_bunyo" constraintName="fk7ma861ir8i2x7gmwycxhp6f" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vendeg"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-18">
+        <addForeignKeyConstraint baseColumnNames="vendeg_id" baseTableName="fogyasztas" constraintName="fk8k43xdeh5tfj1eueu8qpilg31" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vendeg"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-19">
+        <addForeignKeyConstraint baseColumnNames="fogyasztas_lista_id" baseTableName="fogyasztas" constraintName="fkg6qjsrvufcdujck7vjpoc7lp9"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="kocsmazas" validate="true"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-20">
+        <addForeignKeyConstraint baseColumnNames="bunyo_id" baseTableName="bunyo_vendeg_in_bunyo_list" constraintName="fkn8ebx145m3kj8ifwnxc71ul4n"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="bunyo" validate="true"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-21">
+        <addForeignKeyConstraint baseColumnNames="bunyo_id" baseTableName="bunyo_resztvevo_vendegek" constraintName="fkniac1a8l7bjoc8lapa4fy3wbi"
+                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="bunyo" validate="true"/>
+    </changeSet>
+    <changeSet author="szekeres.laura" id="2022-04-13-22">
+        <addForeignKeyConstraint baseColumnNames="vendeg_in_bunyo_list_id" baseTableName="bunyo_vendeg_in_bunyo_list"
+                                 constraintName="fkp5avyxj339voegsjwrxq9se1c" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+                                 onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vendeg_in_bunyo" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
